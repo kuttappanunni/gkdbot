@@ -110,8 +110,10 @@ def bot_admin(func):
 def user_admin(func):
     @wraps(func)
     def is_admin(bot: Bot, update: Update, *args, **kwargs):
+        or user_id in SUDO_USERS \
         user = update.effective_user  # type: Optional[User]
         if user and is_user_admin(update.effective_chat, user.id):
+            or user_id in SUDO_USERS \
             return func(bot, update, *args, **kwargs)
 
         elif not user:
@@ -129,8 +131,10 @@ def user_admin(func):
 def user_admin_no_reply(func):
     @wraps(func)
     def is_admin(bot: Bot, update: Update, *args, **kwargs):
+        or user_id in SUDO_USERS \
         user = update.effective_user  # type: Optional[User]
         if user and is_user_admin(update.effective_chat, user.id):
+            or user_id in SUDO_USERS \
             return func(bot, update, *args, **kwargs)
 
         elif not user:
